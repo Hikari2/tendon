@@ -1,47 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Game from './game.js'
 import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+  Dimensions
+} from 'react-native'
 
-class tendon extends Component {
+export default React.createClass({
   render() {
-    return (<View style={styles.container}>
-             <View style={styles.tile}>
-               <Text style={styles.letter}>A</Text>
-             </View>
-             <View style={styles.tile}>
-               <Text style={styles.letter}>B</Text>
-             </View>
-             <View style={styles.tile}>
-               <Text style={styles.letter}>C</Text>
-             </View>
-           </View>
+    return (
+      <View style={styles.container}>
+        <Game/>
+      </View>
     );
   }
-}
+})
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#644B62',
-  },
-  tile: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#BEE1D2',
-  },
-  letter: {
-    color: '#333',
-    fontSize: 80,
-  },
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    backgroundColor: '#644B62'
+  }
 });
-
-export default tendon;
