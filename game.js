@@ -24,8 +24,8 @@ export default React.createClass({
 
   componentWillMount() {
     this.panResponder = PanResponder.create({
-      onMoveShouldSetResponderCapture: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: () => true,
       onPanResponderGrant: (evt, gestureState) => {
         this.setState({
           touch_x: gestureState.x0,
