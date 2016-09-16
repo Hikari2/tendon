@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Game from './game.js'
 import {
   AppRegistry,
@@ -9,12 +9,12 @@ import {
 } from 'react-native'
 
 export default React.createClass({
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Game/>
       </View>
-    );
+    )
   }
 })
 
@@ -22,6 +22,6 @@ const styles = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-    backgroundColor: '#644B62'
+    backgroundColor: '#382a37'
   }
 });

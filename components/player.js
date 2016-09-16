@@ -5,12 +5,12 @@ import {
   Text,
   View,
   Dimensions
-} from 'react-native'
+} from 'react-native';
 
 export default React.createClass({
   getInitialState() {
     return {
-      }
+    }
   },
 
   componentWillMount() {
