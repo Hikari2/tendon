@@ -79,8 +79,8 @@ export default React.createClass({
 
 const styles = StyleSheet.create({
   board: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width - 60,
+    height: Dimensions.get('window').height - 60,
     backgroundColor: '#644B62'
   }
 });
