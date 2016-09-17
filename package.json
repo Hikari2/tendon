@@ -10,6 +10,9 @@
     "react-native": "0.33.0"
   },
   "devDependencies": {
-
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.5.0",
+    "eslint-plugin-react": "^6.2.2",
+    "eslint-plugin-react-native": "^2.0.0"
   }
 }
