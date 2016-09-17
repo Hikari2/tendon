@@ -1,20 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  Dimensions
 } from 'react-native';
 
 export default React.createClass({
+  propTypes: {
+    x: React.PropTypes.number,
+    y: React.PropTypes.number
+  },
+
   getInitialState() {
     return {
     }
   },
 
   componentWillMount() {
-
+    this.setStae();
   },
 
   render() {
