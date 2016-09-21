@@ -26,4 +26,8 @@
       "version": "0.14.8"
     }
   },
+  "env": {
+    "browser": true,
+    "node": true
+  }
 }
