@@ -4,9 +4,15 @@ import {directions} from '../actions/index'
 import {tileSize} from '../constants/gameConstants'
 
 const initialState = {
-  x: 100,
-  y: 100,
-  direction: directions.NEUTRAL
+  player: {
+    x: 250,
+    y: 100,
+    direction: directions.NEUTRAL
+  },
+  camera: {
+    offsetX: 0,
+    offsetY: 0
+  }
 }
 
 function getMovement (direction) {
@@ -39,8 +45,7 @@ function getMovement (direction) {
       }
     }
 
-
-function player (state = initialState, action) {
+function player (state = initialState.player, action) {
   switch (action.type) {
     case MOVE_PLAER:
       return {
@@ -53,8 +58,21 @@ function player (state = initialState, action) {
   }
 }
 
+function camera (state = initialState.camera, action) {
+  switch (action.type) {
+    case MOVE_PLAER:
+      return {
+        offsetX: state.offsetX + getMovement(action.payload.direction).dx,
+        offsetY: state.offsetY + getMovement(action.payload.direction).dy
+      }
+    default:
+      return state
+  }
+}
+
 const tendon = combineReducers({
-  player
+  player,
+  camera
 })
 
 export default tendon

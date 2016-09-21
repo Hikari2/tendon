@@ -39,7 +39,7 @@ export default React.createClass({
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    backgroundColor: '#644B62'
+    backgroundColor: '#FFFFFF'
   },
   tile: {
     width: 50,

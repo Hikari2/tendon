@@ -9,7 +9,7 @@ export const directions = {
 }
 
 const getDirection = (x, y, origin) => {
-  if (x === null || y === null) {
+  if (x === -1 || y === -1) {
     return directions.NEUTRAL
   }
   x = x - origin.x
