@@ -1,9 +1,9 @@
-import React from 'react';
+import React from 'react'
 import {
   StyleSheet,
   Text,
-  View,
-} from 'react-native';
+  View
+} from 'react-native'
 
 export default React.createClass({
   propTypes: {
@@ -17,7 +17,7 @@ export default React.createClass({
   },
 
   componentWillMount() {
-    this.setStae();
+
   },
 
   render() {
@@ -32,14 +32,14 @@ export default React.createClass({
           <Text style={styles.letter}>P</Text>
         </View>
       </View>
-    );
+    )
   }
 })
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    backgroundColor: '#644B62',
+    backgroundColor: '#644B62'
   },
   tile: {
     width: 50,
@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#BEE1D2',
+    backgroundColor: '#BEE1D2'
   },
   letter: {
     color: '#333',
-    fontSize: 40,
-  },
-});
+    fontSize: 40
+  }
+})
