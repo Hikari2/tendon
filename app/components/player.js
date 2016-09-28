@@ -9,7 +9,7 @@ export default React.createClass({
   propTypes: {
     x: React.PropTypes.number,
     y: React.PropTypes.number,
-    sprite: React.PropTypes.object
+    sprite: React.PropTypes.number
   },
 
   getInitialState() {
@@ -29,7 +29,7 @@ export default React.createClass({
             left: this.props.x,
             top: this.props.y
           }]}>
-          <Image style = {{width: 50, height: 50}} source = {this.props.sprite.img}/>
+          <Image style = {{width: 50, height: 50}} source = {this.props.sprite}/>
       </View>
     )
   }
@@ -37,10 +37,6 @@ export default React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    borderWidth: 1,
-    borderColor: '#FF0000',
-    width: 50,
-    height: 50
+    position: 'absolute'
   }
 })

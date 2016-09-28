@@ -9,22 +9,31 @@ const directions = {
 }
 
 export function getDirection(x, y, cx, cy) {
-  x = x - cx
-  y = cy - y
+
+  if ((x === null && y === null)) {
+    return directions.DOWN
+  }
+
+  x = (x - cx)
+  y = (y - cy)
+
   let v = Math.atan2(y, x) * (180 / Math.PI)
   if (v < 0) {
     v += 360
   }
   let direction
   if (v >= 45 && v <= 135) {
-    direction = directions.TOP
+    direction = directions.DOWN
   } else if (v > 135 && v <= 225) {
     direction = directions.LEFT
   } else if (v > 225 && v <= 315) {
-    direction = directions.DOWN
+    direction = directions.TOP
   } else {
     direction = directions.RIGHT
   }
+
+    //console.log('Player: (' + cx + ', ' + cy + ')' + 'Touch: (' + x + ', ' + y + ')')
+    //console.log('Angle '+ v + ' moving to ' + direction)
   return direction
 }
 

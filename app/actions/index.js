@@ -1,5 +1,6 @@
 import {MOVE_PLAER,
   TURN_PLAYER,
+  STOP_PLAYER,
   UPDATE
 } from '../constants/actionTypes'
 
@@ -18,6 +19,14 @@ export function turnPlayer(dx, dy) {
     payload: {
       dx,
       dy
+    }
+  }
+}
+
+export function stopPlayer() {
+  return {
+    type: STOP_PLAYER,
+    payload: {
     }
   }
 }

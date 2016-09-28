@@ -13,15 +13,23 @@ export default React.createClass({
   propTypes: {
     onTouch: React.PropTypes.func,
     onTouchMove: React.PropTypes.func,
+    onTouchRelease: React.PropTypes.func,
     onUpdate: React.PropTypes.func,
     player: React.PropTypes.shape({
       x: React.PropTypes.number,
       y: React.PropTypes.number,
-      direction: React.PropTypes.string,
-      sprite: React.PropTypes.shape({
+      direction: React.PropTypes.shape({
+        x: React.PropTypes.number,
+        y: React.PropTypes.number
+      }),
+      nextDirection: React.PropTypes.shape({
+        x: React.PropTypes.number,
+        y: React.PropTypes.number
+      }),
+      animation: React.PropTypes.shape({
         frame: React.PropTypes.number,
         facing: React.PropTypes.string,
-        path: React.PropTypes.string
+        sprite: React.PropTypes.strng
       })
     }),
     camera: React.PropTypes.shape({
@@ -41,8 +49,8 @@ export default React.createClass({
         onMoveShouldSetPanResponder: () => true,
         onPanResponderGrant: (evt) => {
           this.props.onTouch(
-            evt.nativeEvent.locationX,
-            evt.nativeEvent.locationX
+            evt.nativeEvent.pageX ,
+            evt.nativeEvent.pageY
           )
         },
         onPanResponderMove: (evt, gestureState) => {
@@ -50,23 +58,25 @@ export default React.createClass({
             gestureState.dx,
             gestureState.dy
           )
+        },
+        onPanResponderRelease: () => {
+          this.props.onTouchRelease()
         }
       })
   },
 
   render() {
-    let sprite = lookUp(this.props.player.sprite.path)
     return (
       <View style={[styles.board, this.getCameraStyle()]}
         {...this.panResponder.panHandlers}>
-        <Player x = {this.props.player.x} y = {this.props.player.y} sprite={sprite}/>
+        <Player x = {this.props.player.x} y = {this.props.player.y} sprite={this.props.player.animation.sprite}/>
         {this.renderGridSystem()}
       </View>
     )
   },
 
   componentDidMount() {
-    this.interval  = setInterval(this.props.onUpdate, 1000/20)
+    this.interval  = setInterval(this.props.onUpdate, 1000/10)
   },
 
   componentWillUnmount() {

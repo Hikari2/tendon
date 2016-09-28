@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import World from '../components/world.js'
-import {movePlayer, turnPlayer, update} from '../actions/index'
+import {movePlayer, turnPlayer, stopPlayer, update} from '../actions/index'
 
 const mapStateToProps = (state) => {
   return {
@@ -18,6 +18,10 @@ const mapDispatchToProps = (dispatch) => {
 
     onTouchMove: (dx, dy) => {
       dispatch(turnPlayer(dx, dy))
+    },
+
+    onTouchRelease: () => {
+      dispatch(stopPlayer())
     },
 
     onUpdate: () => {
