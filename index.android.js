@@ -1,4 +1,4 @@
-import Tendon from './main.js';
-import { AppRegistry } from 'react-native';
+import Tendon from './app/main'
+import { AppRegistry } from 'react-native'
 
-AppRegistry.registerComponent('Tendon', () => Tendon);
+AppRegistry.registerComponent('Tendon', () => Tendon)
