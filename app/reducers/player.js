@@ -16,16 +16,11 @@ const initialState = {
   x: 50,
   y: 50,
   moving: false,
-  direction: {
-    x: null,
-    y: null
-  },
-  nextDirection: {
-    x: null,
-    y: null
-  },
+  direction: directions.NEUTRAL,
+  nextDirection: directions.NEUTRAL,
   animation: {
     frame: 1,
+    facing: directions.DOWN,
     sprite: null
   }
 }
@@ -34,19 +29,15 @@ export default function player(state = initialState, action) {
   switch (action.type) {
     case MOVE_PLAER: {
       const {x, y} = action.payload.angle
+      const direction = getDirection(x, y, state.x, state.y)
       if (!state.moving) {
         return Object.assign({}, state, {
-          direction: {
-            x,
-            y
-          }
+          direction,
+          nextDirection: direction
         })
       } else {
         return Object.assign({}, state, {
-          nextDirection: {
-            x,
-            y
-          }
+          nextDirection: direction
         })
       }
     }
@@ -54,43 +45,29 @@ export default function player(state = initialState, action) {
       const {dx, dy} = action.payload
       const x = state.x + dx
       const y = state.y + dy
-
-      if (!state.moving) {
-        return Object.assign({}, state, {
-          direction: {
-            x,
-            y
-          }
-        })
-      } else {
-        return Object.assign({}, state, {
-          nextDirection: {
-            x,
-            y
-          }
-        })
-      }
+      const direction = getDirection(x, y, state.x, state.y)
+      console.log('Player at ' + state.x + ' ' + y + '  (' + x + ', ' + y +')' + ' Turning to ' + direction)
+      return Object.assign({}, state, {
+        nextDirection: direction
+      })
     }
     case STOP_PLAYER: {
       if (!state.moving) {
         return state
       } else {
         return Object.assign({}, state, {
-          nextDirection: {
-            x: null,
-            y: null
-          }
+          nextDirection: directions.NEUTRAL
         })
       }
     }
     case UPDATE: {
       if (!state.moving) {
-        if (state.direction.x === null || state.direction.y === null) {
-          const direction = getDirection(state.direction.x, state.direction.y, state.x, state.y)
-          const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, 2, direction)
+        if (state.direction === directions.NEUTRAL) {
+          const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, 2, state.animation.facing)
           return Object.assign({}, state, {
             animation: {
               frame: 1,
+              facing: state.animation.facing,
               sprite
             }
           })
@@ -107,21 +84,20 @@ export default function player(state = initialState, action) {
 }
 
   function startMovement(state) {
-    const direction = getDirection(state.direction.x, state.direction.y, state.x, state.y)
-    const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, 1, direction)
+    const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, 1, state.direction)
     return Object.assign({}, state, {
       moving: true,
       animation: {
         frame: 0,
+        facing: state.direction,
         sprite
       }
     })
   }
 
   function continueMovement(state) {
-    const direction = getDirection(state.direction.x, state.direction.y, state.x, state.y)
-    const {dx, dy} = getMovement(direction)
-    const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, state.animation.frame, direction)
+    const {dx, dy} = getMovement(state.direction)
+    const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, state.animation.frame, state.direction)
     const framePerTile = TILE_SIZE / PLAYER_SPEED
     const finished = state.animation.frame === framePerTile
     return Object.assign({}, state, {
@@ -129,9 +105,10 @@ export default function player(state = initialState, action) {
       y: finished ? state.y : state.y + dy,
       moving: finished ? false : true,
       direction: finished ? state.nextDirection : state.direction,
-      nextDirection: finished ? {x: null, y: null} : state.nextDirection,
+      nextDirection: state.nextDirection,
       animation: {
         frame: finished ? 1 : state.animation.frame + 1,
+        facing: state.animation.facing,
         sprite
       }
     })

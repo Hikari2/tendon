@@ -7,7 +7,6 @@ import {
   PanResponder
 } from 'react-native'
 import { TILE_SIZE } from '../constants/gameConstants'
-import lookUp from '../utils/spriteTable'
 
 export default React.createClass({
   propTypes: {
@@ -18,14 +17,8 @@ export default React.createClass({
     player: React.PropTypes.shape({
       x: React.PropTypes.number,
       y: React.PropTypes.number,
-      direction: React.PropTypes.shape({
-        x: React.PropTypes.number,
-        y: React.PropTypes.number
-      }),
-      nextDirection: React.PropTypes.shape({
-        x: React.PropTypes.number,
-        y: React.PropTypes.number
-      }),
+      direction: React.PropTypes.strng,
+      nextDirection: React.PropTypes.strng,
       animation: React.PropTypes.shape({
         frame: React.PropTypes.number,
         facing: React.PropTypes.string,

@@ -10,10 +10,6 @@ const directions = {
 
 export function getDirection(x, y, cx, cy) {
 
-  if ((x === null && y === null)) {
-    return directions.DOWN
-  }
-
   x = (x - cx)
   y = (y - cy)
 
@@ -32,8 +28,6 @@ export function getDirection(x, y, cx, cy) {
     direction = directions.RIGHT
   }
 
-    //console.log('Player: (' + cx + ', ' + cy + ')' + 'Touch: (' + x + ', ' + y + ')')
-    //console.log('Angle '+ v + ' moving to ' + direction)
   return direction
 }
 
