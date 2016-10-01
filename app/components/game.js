@@ -8,12 +8,16 @@ import {
 
 export default React.createClass({
   propTypes: {
-
+    onStart: React.PropTypes.func
   },
 
   getInitialState() {
     return {
       }
+  },
+
+  componentWillMount() {
+    this.props.onStart()
   },
 
   render() {

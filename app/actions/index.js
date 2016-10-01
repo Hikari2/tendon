@@ -1,7 +1,8 @@
 import {MOVE_PLAER,
   TURN_PLAYER,
   STOP_PLAYER,
-  UPDATE
+  UPDATE,
+  LOAD_LEVEL
 } from '../constants/actionTypes'
 
 export function movePlayer(angle) {
@@ -34,6 +35,14 @@ export function stopPlayer() {
 export function update() {
   return {
     type: UPDATE,
+    payload: {
+    }
+  }
+}
+
+export function loadLevel() {
+  return {
+    type: LOAD_LEVEL,
     payload: {
     }
   }

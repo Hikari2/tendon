@@ -1,5 +1,5 @@
 import { STATE_TYPE } from '../constants/gameConstants'
-import { lookUp } from './spriteTable'
+import { spriteTable } from './spriteTable'
 
 export default class SpriteLoader {
   constructor(type, id) {
@@ -20,6 +20,6 @@ export default class SpriteLoader {
         key = 'sprites_'+this.type + '_' + state + '_' + direction + '_' + index
       }
     }
-    return lookUp(key)
+    return spriteTable[key]
   }
 }

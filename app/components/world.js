@@ -1,5 +1,5 @@
 import React from 'react'
-import Player from './player'
+import Sprite from './sprite'
 import {
   StyleSheet,
   View,
@@ -14,11 +14,17 @@ export default React.createClass({
     onTouchMove: React.PropTypes.func,
     onTouchRelease: React.PropTypes.func,
     onUpdate: React.PropTypes.func,
+    map: React.PropTypes.shape({
+      width: React.PropTypes.number,
+      height: React.PropTypes.number
+    }),
     player: React.PropTypes.shape({
       x: React.PropTypes.number,
       y: React.PropTypes.number,
       direction: React.PropTypes.strng,
       nextDirection: React.PropTypes.strng,
+      height: React.PropTypes.number,
+      width: React.PropTypes.number,
       animation: React.PropTypes.shape({
         frame: React.PropTypes.number,
         facing: React.PropTypes.string,
@@ -33,6 +39,8 @@ export default React.createClass({
 
   getInitialState() {
     return {
+        x: -50,
+        y: -50
       }
   },
 
@@ -42,15 +50,23 @@ export default React.createClass({
         onMoveShouldSetPanResponder: () => true,
         onPanResponderGrant: (evt) => {
           this.props.onTouch(
-            evt.nativeEvent.pageX ,
-            evt.nativeEvent.pageY
+            evt.nativeEvent.pageX + this.props.camera.camX,
+            evt.nativeEvent.pageY + this.props.camera.camY
           )
+          this.setState({
+            x: evt.nativeEvent.pageX + this.props.camera.camX,
+            y: evt.nativeEvent.pageY + this.props.camera.camY
+          })
         },
         onPanResponderMove: (evt, gestureState) => {
-          this.props.onTouchMove(
-            gestureState.dx,
-            gestureState.dy
+          this.props.onTouch(
+            gestureState.moveX + this.props.camera.camX,
+            gestureState.moveY + this.props.camera.camY
           )
+          this.setState({
+            x: gestureState.moveX + this.props.camera.camX,
+            y: gestureState.moveY + this.props.camera.camY
+          })
         },
         onPanResponderRelease: () => {
           this.props.onTouchRelease()
@@ -60,10 +76,15 @@ export default React.createClass({
 
   render() {
     return (
-      <View style={[styles.board, this.getCameraStyle()]}
+      <View style={[styles.board, this.getCameraStyle(), this.getBoardSize()]}
         {...this.panResponder.panHandlers}>
-        <Player x = {this.props.player.x} y = {this.props.player.y} sprite={this.props.player.animation.sprite}/>
         {this.renderGridSystem()}
+        {this.renderPlayer()}
+        <View style = {[styles.circle,
+            {
+              left: this.state.x - 25,
+              top: this.state.y - 25
+            }]}/>
       </View>
     )
   },
@@ -74,6 +95,22 @@ export default React.createClass({
 
   componentWillUnmount() {
     clearInterval(this.interval)
+  },
+
+  renderPlayer() {
+    return <Sprite x = {this.props.player.x}
+            y = {this.props.player.y}
+            sprite = {this.props.player.animation.sprite}
+            height = {this.props.player.height}
+            width = {this.props.player.width}/>
+  },
+
+  getBoardSize() {
+    console.log(this.props.map)
+    return {
+      width: this.props.map.width,
+      height: this.props.map.height
+    }
   },
 
   getCameraStyle() {
@@ -95,11 +132,8 @@ export default React.createClass({
 
 const styles = StyleSheet.create({
   board: {
-    width: Dimensions.get('window').width * 2,
-    height: Dimensions.get('window').height * 2,
     backgroundColor: '#F8F8FF',
-    borderRadius: 4,
-    borderWidth: 10,
+    borderWidth: 20,
     borderColor: '#0000FF'
   },
   row: {
@@ -107,5 +141,12 @@ const styles = StyleSheet.create({
     height: TILE_SIZE,
     borderWidth: 0.5,
     borderColor: '#000000'
+  },
+  circle: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#FF0000'
   }
 })

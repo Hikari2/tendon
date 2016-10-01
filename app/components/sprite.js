@@ -9,7 +9,9 @@ export default React.createClass({
   propTypes: {
     x: React.PropTypes.number,
     y: React.PropTypes.number,
-    sprite: React.PropTypes.number
+    sprite: React.PropTypes.number,
+    height: React.PropTypes.number,
+    width: React.PropTypes.number
   },
 
   getInitialState() {
@@ -29,7 +31,8 @@ export default React.createClass({
             left: this.props.x,
             top: this.props.y
           }]}>
-          <Image style = {{width: 50, height: 50}} source = {this.props.sprite}/>
+          <Image style = {{width: this.props.width, height: this.props.height}}
+            source = {this.props.sprite}/>
       </View>
     )
   }

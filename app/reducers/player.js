@@ -1,34 +1,43 @@
 import { MOVE_PLAER,
   TURN_PLAYER,
   STOP_PLAYER,
-  UPDATE
+  UPDATE,
+  LOAD_LEVEL
 } from '../constants/actionTypes'
-
 import directions, { getDirection, getMovement} from '../utils/directions'
-
 import { PLAYER_SPEED, TILE_SIZE, ENTITY_TYPE, STATE_TYPE } from '../constants/gameConstants'
-
 import SpriteLoader from '../utils/spriteLoader'
 
 const spriteLoader = new SpriteLoader(ENTITY_TYPE.PLAYER, '')
 
-const initialState = {
-  x: 50,
-  y: 50,
-  moving: false,
-  direction: directions.NEUTRAL,
-  nextDirection: directions.NEUTRAL,
-  animation: {
-    frame: 1,
-    facing: directions.DOWN,
-    sprite: null
+export default function player(state, action, map) {
+  if (typeof state === 'undefined') {
+    return {
+      x: map.player.x,
+      y: map.player.y,
+      moving: false,
+      direction: directions.NEUTRAL,
+      nextDirection: directions.NEUTRAL,
+      height: TILE_SIZE,
+      width: TILE_SIZE,
+      animation: {
+        frame: 1,
+        facing: directions.DOWN,
+        sprite: null
+      }
+    }
   }
-}
 
-export default function player(state = initialState, action) {
   switch (action.type) {
+    case LOAD_LEVEL: {
+      return Object.assign({}, state, {
+        x: map.player.x,
+        y: map.player.y
+      })
+    }
+
     case MOVE_PLAER: {
-      const {x, y} = action.payload.angle
+      let {x, y} = action.payload.angle
       const direction = getDirection(x, y, state.x, state.y)
       if (!state.moving) {
         return Object.assign({}, state, {
@@ -46,7 +55,6 @@ export default function player(state = initialState, action) {
       const x = state.x + dx
       const y = state.y + dy
       const direction = getDirection(x, y, state.x, state.y)
-      console.log('Player at ' + state.x + ' ' + y + '  (' + x + ', ' + y +')' + ' Turning to ' + direction)
       return Object.assign({}, state, {
         nextDirection: direction
       })

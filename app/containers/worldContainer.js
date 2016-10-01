@@ -4,6 +4,7 @@ import {movePlayer, turnPlayer, stopPlayer, update} from '../actions/index'
 
 const mapStateToProps = (state) => {
   return {
+    map: state.map,
     player: state.player,
     camera: state.camera
   }
