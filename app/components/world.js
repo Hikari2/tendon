@@ -16,7 +16,9 @@ export default React.createClass({
     onUpdate: React.PropTypes.func,
     map: React.PropTypes.shape({
       width: React.PropTypes.number,
-      height: React.PropTypes.number
+      height: React.PropTypes.number,
+      tileSize: React.PropTypes.number,
+      walls: React.PropTypes.array
     }),
     player: React.PropTypes.shape({
       x: React.PropTypes.number,
@@ -97,6 +99,22 @@ export default React.createClass({
     clearInterval(this.interval)
   },
 
+  renderWalls() {
+    const walls = this.props.map.walls
+    return walls.map((data, i) => {
+      const difX = Math.abs(data.x - this.props.player.x)
+      const difY = Math.abs(data.y - this.props.player.y)
+      if (difX <= Dimensions.get('window').width / 3 && difY <= Dimensions.get('window').height) {
+        return <Sprite x = {data.x}
+                  y = {data.y}
+                  sprite = {data.sprite}
+                  height = {this.props.map.tileSize}
+                  width = {this.props.map.tileSize}
+                  key = {`tile-${i}`}/>
+      }
+    })
+  },
+
   renderPlayer() {
     return <Sprite x = {this.props.player.x}
             y = {this.props.player.y}
@@ -106,7 +124,6 @@ export default React.createClass({
   },
 
   getBoardSize() {
-    console.log(this.props.map)
     return {
       width: this.props.map.width,
       height: this.props.map.height
@@ -121,7 +138,7 @@ export default React.createClass({
   },
 
   renderGridSystem() {
-    const h = Dimensions.get('window').height * 2 / TILE_SIZE
+    const h = this.props.map.height * 2 / TILE_SIZE
     let grid = []
     for (let i = 0; i < h; i++) {
       grid.push(<View style={styles.row} key={`${i}`}/>)
@@ -132,12 +149,9 @@ export default React.createClass({
 
 const styles = StyleSheet.create({
   board: {
-    backgroundColor: '#F8F8FF',
-    borderWidth: 20,
-    borderColor: '#0000FF'
+    backgroundColor: '#F8F8FF'
   },
   row: {
-    width: Dimensions.get('window').width * 2,
     height: TILE_SIZE,
     borderWidth: 0.5,
     borderColor: '#000000'

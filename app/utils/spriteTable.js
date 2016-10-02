@@ -15,3 +15,7 @@ spriteTable['sprites_player_moving_right_3'] = require('../assets/sprites/player
 spriteTable['sprites_player_moving_top_1'] = require('../assets/sprites/player/moving/top/1.png')
 spriteTable['sprites_player_moving_top_2'] = require('../assets/sprites/player/moving/top/2.png')
 spriteTable['sprites_player_moving_top_3'] = require('../assets/sprites/player/moving/top/3.png')
+
+spriteTable['sprites_wall_stone_1'] = require('../assets/sprites/tiles/wall/stone/1.png')
+spriteTable['sprites_wall_stone_2'] = require('../assets/sprites/tiles/wall/stone/2.png')
+spriteTable['sprites_wall_stone_3'] = require('../assets/sprites/tiles/wall/stone/3.png')

@@ -6,16 +6,12 @@ const mapLoader = new MapLoader()
 const initialState = {
   width: 0,
   height: 0,
+  tileSize: 0,
   player: {
     x: 0,
     y: 0
   },
-  enemies: {
-
-  },
-  objectives: {
-
-  }
+  walls: []
 }
 
 export default function map(state = initialState, action, game) {

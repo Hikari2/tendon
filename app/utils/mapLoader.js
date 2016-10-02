@@ -1,15 +1,13 @@
 import levelOne from '../levels/1'
-import { TILE_SIZE, GAME_LEVELS, ENTITY_TYPE } from '../constants/gameConstants'
+import { TILE_SIZE, GAME_LEVELS, ENTITY_TYPE, TILE_TYPE } from '../constants/gameConstants'
 
 export default class MapLoader {
   constructor() {
-    this.player = {}
-    this.enemies = {}
+    this.walls = []
   }
 
   loadMap(level) {
-    this.player = {}
-    this.enemies = {}
+    this.walls = []
     let map
     switch(level) {
       case GAME_LEVELS.ONE: {
@@ -28,7 +26,12 @@ export default class MapLoader {
     return {
       width: map.width * TILE_SIZE,
       height: map.height * TILE_SIZE,
-      player: this.player
+      tileSize: TILE_SIZE,
+      player: {
+        x: map.player.x * TILE_SIZE,
+        y: map.player.y * TILE_SIZE
+      },
+      walls: this.walls
     }
   }
 
@@ -38,18 +41,22 @@ export default class MapLoader {
       const tiles = data.split(' ')
       tiles.forEach((tile, col) => {
         const data = symbolMap[tile]
-        this.convertToEntity(data, col, row)
+        if (data) {
+          this.toEntity(data, col, row)
+        }
       }, [row])
     })
   }
 
-  convertToEntity(data, x, y) {
+  toEntity(data, col, row) {
     switch(data.type) {
-      case ENTITY_TYPE.PLAYER: {
-        Object.assign(this.player, this.player, {
-          x: x * TILE_SIZE,
-          y: y * TILE_SIZE
+      case ENTITY_TYPE.WALL: {
+        this.walls.push({
+          x: col * TILE_SIZE,
+          y: row * TILE_SIZE,
+          sprite: data.sprite
         })
+        break
       }
     }
   }

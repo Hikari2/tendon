@@ -6,7 +6,6 @@ export const ENTITY_TYPE = {
   ENEMY: 'ENEMY',
   OBJECTIVE: 'OBJECTIVE',
   WALL: 'WALL'
-
 }
 
 export const STATE_TYPE = {
@@ -15,4 +14,8 @@ export const STATE_TYPE = {
 
 export const GAME_LEVELS = {
   ONE: 'ONE'
+}
+
+export const WALL_TYPE = {
+  STONE: 'stone'
 }
