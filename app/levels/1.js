@@ -32,11 +32,11 @@ const symbolMap = {}
   }
 
 const map = {
-  height: 10,
+  height: 15,
   width: 15,
   player: {
     x: 10,
-    y: 6
+    y: 10
   },
   tileMap,
   symbolMap

@@ -1,23 +1,25 @@
 import { LOAD_LEVEL } from '../constants/actionTypes'
 import MapLoader from '../utils/mapLoader'
+import { TILE_SIZE } from '../constants/gameConstants'
 
 const mapLoader = new MapLoader()
 
 const initialState = {
-  width: 0,
+  tileSize: TILE_SIZE,
+  background: [],
+  foreground: [],
   height: 0,
-  tileSize: 0,
+  width: 0,
   player: {
     x: 0,
     y: 0
-  },
-  walls: []
+  }
 }
 
 export default function map(state = initialState, action, game) {
   switch (action.type) {
     case LOAD_LEVEL: {
-      return mapLoader.loadMap(game.level)
+      return Object.assign({}, state, mapLoader.loadMap(game.level))
     }
     default:
       return state

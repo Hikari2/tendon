@@ -5,34 +5,26 @@ import { MOVE_PLAER,
   LOAD_LEVEL
 } from '../constants/actionTypes'
 import directions, { getDirection, getMovement} from '../utils/directions'
-import { PLAYER_SPEED, TILE_SIZE, ENTITY_TYPE, STATE_TYPE } from '../constants/gameConstants'
-import SpriteLoader from '../utils/spriteLoader'
-
-const spriteLoader = new SpriteLoader(ENTITY_TYPE.PLAYER, '')
+import { PLAYER_SPEED, TILE_SIZE } from '../constants/gameConstants'
 
 export default function player(state, action, map) {
   if (typeof state === 'undefined') {
     return {
-      x: map.player.x,
-      y: map.player.y,
+      x: 0,
+      y: 0,
       moving: false,
+      frame: 0,
       direction: directions.NEUTRAL,
       nextDirection: directions.NEUTRAL,
-      height: TILE_SIZE,
-      width: TILE_SIZE,
-      animation: {
-        frame: 1,
-        facing: directions.DOWN,
-        sprite: null
-      }
+      facing: directions.DOWN
     }
   }
 
   switch (action.type) {
     case LOAD_LEVEL: {
       return Object.assign({}, state, {
-        x: map.player.x,
-        y: map.player.y
+        x: map.player.x * map.tileSize,
+        y: map.player.y * map.tileSize
       })
     }
 
@@ -69,19 +61,13 @@ export default function player(state, action, map) {
       }
     }
     case UPDATE: {
-      if (!state.moving) {
-        if (state.direction === directions.NEUTRAL) {
-          const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, 2, state.animation.facing)
-          return Object.assign({}, state, {
-            animation: {
-              frame: 1,
-              facing: state.animation.facing,
-              sprite
-            }
-          })
-        } else {
-          return startMovement(state)
-        }
+      if (state.direction === directions.NEUTRAL) {
+        return Object.assign({}, state, {
+          moving: false
+        })
+      }
+      else if (!state.moving) {
+        return startMovement(state)
       } else {
         return continueMovement(state)
       }
@@ -92,33 +78,25 @@ export default function player(state, action, map) {
 }
 
   function startMovement(state) {
-    const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, 1, state.direction)
     return Object.assign({}, state, {
       moving: true,
-      animation: {
-        frame: 0,
-        facing: state.direction,
-        sprite
-      }
+      facing: state.direction
     })
   }
 
   function continueMovement(state) {
     const {dx, dy} = getMovement(state.direction)
-    const sprite = spriteLoader.getSprite(STATE_TYPE.MOVING, state.animation.frame, state.direction)
     const framePerTile = TILE_SIZE / PLAYER_SPEED
-    const finished = state.animation.frame === framePerTile
+    const finished = state.frame === framePerTile
     return Object.assign({}, state, {
       x: finished ? state.x : state.x + dx,
       y: finished ? state.y : state.y + dy,
-      moving: finished ? false : true,
+      frame: finished ? 0 : state.frame + 1,
       direction: finished ? state.nextDirection : state.direction,
       nextDirection: state.nextDirection,
-      animation: {
-        frame: finished ? 1 : state.animation.frame + 1,
-        facing: state.animation.facing,
-        sprite
-      }
+      facing: finished ?
+      (state.nextDirection === directions.NEUTRAL ?
+        state.facing : state.nextDirection) : state.facing
     })
   }
 }

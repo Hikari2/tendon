@@ -4,7 +4,9 @@ import {loadLevel} from '../actions/index'
 
 const mapStateToProps = (state) => {
   return {
-    state
+    map: state.map,
+    player: state.player,
+    camera: state.camera
   }
 }
 

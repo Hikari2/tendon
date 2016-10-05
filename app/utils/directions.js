@@ -1,11 +1,11 @@
 import { PLAYER_SPEED } from '../constants/gameConstants'
 
 const directions = {
-  TOP: 'top',
-  LEFT: 'left',
-  RIGHT: 'right',
-  DOWN: 'down',
-  NEUTRAL: 'neutral'
+  DOWN: 0,
+  LEFT: 1,
+  TOP: 2,
+  RIGHT: 3,
+  NEUTRAL: -10
 }
 
 export function getDirection(x, y, cx, cy) {

@@ -1,4 +1,4 @@
-import levelOne from '../levels/1'
+import levelOne from '../levels/one'
 import { TILE_SIZE, GAME_LEVELS, ENTITY_TYPE, TILE_TYPE } from '../constants/gameConstants'
 
 export default class MapLoader {
@@ -8,17 +8,14 @@ export default class MapLoader {
 
   loadMap(level) {
     this.walls = []
-    let map
     switch(level) {
       case GAME_LEVELS.ONE: {
-        map = levelOne
-        break
+        return levelOne
       }
       default: {
-        map = levelOne
+        return levelOne
       }
     }
-    return this.read(map)
   }
 
   read(map) {

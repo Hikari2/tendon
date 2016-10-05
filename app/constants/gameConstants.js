@@ -1,5 +1,5 @@
 export const TILE_SIZE = 50
-export const PLAYER_SPEED = 10
+export const PLAYER_SPEED = 5
 
 export const ENTITY_TYPE = {
   PLAYER: 'player',
