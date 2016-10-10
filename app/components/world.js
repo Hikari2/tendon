@@ -66,7 +66,7 @@ export default React.createClass({
       <View style={[styles.board, this.getCameraStyle(), this.getBoardSize()]}
         {...this.panResponder.panHandlers}>
         <TileMap
-          sourceWidth={250}
+          sourceWidth={320}
           src={require('../assets/sprites/tiles/tiles.png')}
           tileSize={this.props.map.tileSize}
           columns={this.props.map.width}

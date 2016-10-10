@@ -33,7 +33,7 @@ export default React.createClass({
     return (
       <View style={styles.board}>
         <Loop>
-          <Stage style={{ backgroundColor: '#3a9bdc' }} height = {Dimensions.get('window').height} width = {Dimensions.get('window').width}>
+          <Stage style={{ backgroundColor: '#000000' }} height = {Dimensions.get('window').height} width = {Dimensions.get('window').width}>
             <WorldContainer/>
             <PlayerContainer/>
           </Stage>
