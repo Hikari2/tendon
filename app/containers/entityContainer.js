@@ -9,7 +9,7 @@ const mapStateToProps = (state, ownProps) => {
     y: entity.y,
     moving: entity.moving,
     sprite: spriteSheetTable[entity.type],
-    facing: entity.moving ? entity.facing : entity.facing + 4,
+    facing: entity.facing,
     tileSize: state.world.tileSize,
     left: -state.camera.camX,
     top: -state.camera.camY

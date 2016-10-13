@@ -3,8 +3,8 @@ import { PLAYER_SPEED, TILE_SIZE } from '../constants/gameConstants'
 const directions = {
   DOWN: 0,
   LEFT: 1,
-  TOP: 2,
-  RIGHT: 3,
+  TOP: 3,
+  RIGHT: 2,
   NEUTRAL: -10
 }
 

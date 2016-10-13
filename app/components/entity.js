@@ -43,14 +43,14 @@ export default React.createClass({
     return (
       <View style={this.getWrapperStyle()}>
         <Sprite
-          offset={[0, 4]}
+          offset={[0, 0]}
           tileHeight={this.props.tileSize}
           tileWidth ={this.props.tileSize}
-          repeat={true}
+          repeat={this.props.moving}
           src={this.props.sprite}
           scale={isFinite(this.context.scale) ? 1 : 1}
           state={this.props.facing}
-          steps={[9, 9, 9, 9, 14, 14, 14, 14]}
+          steps={[2, 2, 2, 2]}
           ticksPerFrame={2}
         />
       </View>
