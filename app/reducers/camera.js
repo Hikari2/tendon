@@ -7,11 +7,12 @@ const initialState = {
   camY: 0
 }
 
-export default function camera(state = initialState, action, player, map) {
+export default function camera(state = initialState, action, world) {
   switch (action.type) {
     case UPDATE: {
-      const maxOffsetX = (map.w * TILE_SIZE ) - Dimensions.get('window').width
-      const maxOffsetY = (map.h * TILE_SIZE) - Dimensions.get('window').height
+      const player = world.entities[0]
+      const maxOffsetX = (world.width * TILE_SIZE ) - Dimensions.get('window').width
+      const maxOffsetY = (world.height * TILE_SIZE) - Dimensions.get('window').height
       let camX = player.x - Dimensions.get('window').width / 2
       let camY = player.y - Dimensions.get('window').height / 2
 

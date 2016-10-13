@@ -1,13 +1,8 @@
-import { MOVE_PLAER,
-  TURN_PLAYER,
-  STOP_PLAYER,
-  UPDATE,
-  LOAD_LEVEL
-} from '../constants/actionTypes'
+import { UPDATE, LOAD_LEVEL } from '../constants/actionTypes'
 import directions, { getDirection, getMovement, getDestination} from '../utils/directions'
 import { TILE_SIZE } from '../constants/gameConstants'
 
-export default function player(state, action) {
+export default function enemy(state, action) {
   switch (action.type) {
     case LOAD_LEVEL: {
       return Object.assign({}, state, {
@@ -18,41 +13,9 @@ export default function player(state, action) {
         destX: state.x * TILE_SIZE,
         destY: state.y * TILE_SIZE,
         alive: true,
-        direction: directions.NEUTRAL,
-        nextDirection: directions.NEUTRAL
+        direction: directions.DOWN,
+        nextDirection: directions.DOWN
       })
-    }
-    case MOVE_PLAER: {
-      let {x, y} = action.payload.angle
-      const direction = getDirection(x, y, state.x, state.y)
-      if (!state.moving) {
-        return Object.assign({}, state, {
-          direction,
-          nextDirection: direction
-        })
-      } else {
-        return Object.assign({}, state, {
-          nextDirection: direction
-        })
-      }
-    }
-    case TURN_PLAYER: {
-      const {dx, dy} = action.payload
-      const x = state.x + dx
-      const y = state.y + dy
-      const direction = getDirection(x, y, state.x, state.y)
-      return Object.assign({}, state, {
-        nextDirection: direction
-      })
-    }
-    case STOP_PLAYER: {
-      if (!state.moving) {
-        return state
-      } else {
-        return Object.assign({}, state, {
-          nextDirection: directions.NEUTRAL
-        })
-      }
     }
     case UPDATE: {
       if (state.direction === directions.NEUTRAL) {
@@ -118,5 +81,9 @@ export default function player(state, action) {
       (state.nextDirection === directions.NEUTRAL ?
         state.facing : state.nextDirection) : state.direction
     }, newDest)
+  }
+
+  function getNextDirection(direction) {
+    return (direction + 1) % 3
   }
 }

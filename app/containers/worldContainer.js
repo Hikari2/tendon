@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
-import World from '../components/world.js'
-import {movePlayer, turnPlayer, stopPlayer, update} from '../actions/index'
+import World from '../components/world'
+import { movePlayer, turnPlayer, stopPlayer, update } from '../actions/index'
+import tileSheetTable from '../utils/tiles'
 
 const mapStateToProps = (state) => {
   return {
-    map: state.map,
-    player: state.player,
+    map: state.world,
+    tileSheet: tileSheetTable[state.world.type],
     camera: state.camera
   }
 }

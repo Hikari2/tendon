@@ -1,12 +1,9 @@
 import React from 'react'
-import Sprite from './sprite'
 import {
   StyleSheet,
   View,
-  Dimensions,
   PanResponder
 } from 'react-native'
-import { TILE_SIZE } from '../constants/gameConstants'
 import { TileMap } from 'react-game-kit/native'
 
 export default React.createClass({
@@ -19,23 +16,13 @@ export default React.createClass({
     onTouchMove: React.PropTypes.func,
     onTouchRelease: React.PropTypes.func,
     onUpdate: React.PropTypes.func,
-    map: React.PropTypes.shape({
-      tileSize: React.PropTypes.number,
-      background: React.PropTypes.array,
-      foreground: React.PropTypes.array,
-      height: React.PropTypes.number,
-      width: React.PropTypes.number,
-      player: React.PropTypes.object
-    }),
-    camera: React.PropTypes.shape({
-      camX: React.PropTypes.number,
-      camY: React.PropTypes.number
-    })
+    map: React.PropTypes.object,
+    tileSheet: React.PropTypes.object,
+    camera: React.PropTypes.object
   },
 
   getInitialState() {
     return {
-
       }
   },
 
@@ -66,8 +53,8 @@ export default React.createClass({
       <View style={[styles.board, this.getCameraStyle(), this.getBoardSize()]}
         {...this.panResponder.panHandlers}>
         <TileMap
-          sourceWidth={320}
-          src={require('../assets/sprites/tiles/tiles.png')}
+          sourceWidth={this.props.tileSheet.size}
+          src={this.props.tileSheet.src}
           tileSize={this.props.map.tileSize}
           columns={this.props.map.width}
           rows={this.props.map.height}

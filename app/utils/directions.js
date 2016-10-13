@@ -1,4 +1,4 @@
-import { PLAYER_SPEED } from '../constants/gameConstants'
+import { PLAYER_SPEED, TILE_SIZE } from '../constants/gameConstants'
 
 const directions = {
   DOWN: 0,
@@ -60,5 +60,35 @@ export function getMovement (direction) {
         }
     }
   }
+
+  export function getDestination (direction, x, y) {
+    switch (direction) {
+      case directions.TOP:
+        return {
+          x,
+          y: y -TILE_SIZE
+        }
+      case directions.LEFT:
+        return {
+          x: x -TILE_SIZE,
+          y
+        }
+        case directions.RIGHT:
+          return {
+            x: x + TILE_SIZE,
+            y
+          }
+        case directions.DOWN:
+          return {
+            x,
+            y: y + TILE_SIZE
+          }
+        default:
+          return {
+            x,
+            y
+          }
+      }
+    }
 
   export default directions

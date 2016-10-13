@@ -2,10 +2,13 @@ export const TILE_SIZE = 32
 export const PLAYER_SPEED = 8
 
 export const ENTITY_TYPE = {
-  PLAYER: 'player',
+  PLAYER: 'PLAYER',
   ENEMY: 'ENEMY',
-  OBJECTIVE: 'OBJECTIVE',
-  WALL: 'WALL'
+  INTERACTABLE: 'OBJECTIVE'
+}
+
+export const MAP_TYPE = {
+  DUNGEON: 'DUNGEON'
 }
 
 export const STATE_TYPE = {

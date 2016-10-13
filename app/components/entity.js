@@ -35,9 +35,7 @@ export default React.createClass({
       left: this.props.x + this.props.left,
       top: this.props.y + this.props.top,
       height: this.props.tileSize,
-      width: this.props.tileSize,
-      borderWidth: 1,
-      borderColor: '#ff0000'
+      width: this.props.tileSize
     }
   },
 

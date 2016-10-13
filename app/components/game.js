@@ -1,23 +1,16 @@
 import React from 'react'
-import WorldContainer from '../containers/worldContainer'
 import {
   StyleSheet,
   View,
   Dimensions
 } from 'react-native'
-import PlayerContainer from '../containers/playerContainer'
+import EntitiyContainer from '../containers/entityContainer'
+import WorldContainer from '../containers/worldContainer'
 import { Loop, Stage } from 'react-game-kit/native'
 
 export default React.createClass({
   propTypes: {
-    onStart: React.PropTypes.func,
-    map: React.PropTypes.shape({
-      width: React.PropTypes.number,
-      height: React.PropTypes.number,
-      tileSize: React.PropTypes.number,
-      walls: React.PropTypes.array
-    }),
-    player: React.PropTypes.object
+    onStart: React.PropTypes.func
   },
 
   getInitialState() {
@@ -35,7 +28,7 @@ export default React.createClass({
         <Loop>
           <Stage style={{ backgroundColor: '#000000' }} height = {Dimensions.get('window').height} width = {Dimensions.get('window').width}>
             <WorldContainer/>
-            <PlayerContainer/>
+            <EntitiyContainer index={0}/>
           </Stage>
         </Loop>
       </View>
